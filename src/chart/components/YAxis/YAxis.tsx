@@ -1,14 +1,14 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import './YAxis.css';
+import { chart } from '../../data';
 
 const YAxis: React.FC = () => {
+  const values = useMemo(() => chart.sort((a, b) => b.value - a.value), []);
+  console.log(values);
+
   return (
     <ul className="wrapper-yaxis">
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
-      <li>10</li>
+      {values.map((y) => <li key={y.value}>{y.value}</li>)}
     </ul>
   );
 };
