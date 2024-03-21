@@ -1,7 +1,6 @@
 .wrapper-chart {
   aspect-ratio: 16 / 9;
   height: calc(100vh - 42px);
-  border: 1px solid #ccc;
   position: relative;
   margin: 0 auto;
   overflow: hidden;
