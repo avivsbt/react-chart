@@ -1,10 +1,8 @@
 .wrapper-chart {
-  aspect-ratio: 16 / 9;
-  /* height: calc(100vh - 42px); */
+  height: 281px;
   position: relative;
   margin: 0 auto;
-  overflow: hidden;
   display: flex;
   flex-direction: row;
-  width: 500px;
+  width: 600px;
 }
