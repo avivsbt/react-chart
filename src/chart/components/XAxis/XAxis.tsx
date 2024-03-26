@@ -10,14 +10,14 @@ type Props = {
 
 const XAxis: React.FC<Props> = ({ chartHeight, chartWidth }) => {
 
-  const max = useMemo(() => Math.max(...chart.map((item) => item.value)), [])
-  const min = useMemo(() => Math.min(...chart.map((item) => item.value)), [])
+  const max = useMemo(() => Math.max(...chart.map((item) => item.value)), []);
+  const min = useMemo(() => Math.min(...chart.map((item) => item.value)), []);
 
   const calcRatioHeight = useCallback((value: number) => {
 
     const relativeValue = (value - min) / (max - min);
 
-    let height = (chartHeight - (chartHeight / chart.length)) + 10;
+    let height = (chartHeight - (chartHeight / chart.length)) - 40;
 
     return relativeValue * height;
 
