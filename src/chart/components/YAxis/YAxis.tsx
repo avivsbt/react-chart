@@ -1,15 +1,21 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import './YAxis.css';
+import { chart } from '../../data';
 
 const YAxis: React.FC = () => {
+  const max = useMemo(() => Math.max(...chart.map((item) => item.value)), []);
+  const min = useMemo(() => Math.min(...chart.map((item) => item.value)), []);
+  const middle = useMemo(() => Math.floor((max + min) / 2), [max, min]);
+  const middleMin = useMemo(() => Math.floor((middle + min) / 2), [middle, min]);
+  const middleMax = useMemo(() => Math.floor((middle + max) / 2), [middle, max]);
 
   return (
     <ul className="wrapper-yaxis">
-      <li>60</li>
-      <li>50</li>
-      <li>40</li>
-      <li>30</li>
-      <li>20</li>
+      <li>{max}</li>
+      <li>{middleMax}</li>
+      <li>{middle}</li>
+      <li>{middleMin}</li>
+      <li>{min}</li>
     </ul>
   );
 };
