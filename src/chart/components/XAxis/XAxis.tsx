@@ -17,7 +17,7 @@ const XAxis: React.FC<Props> = ({ chartHeight, chartWidth }) => {
 
     const relativeValue = (value - min) / (max - min);
 
-    let height = (chartHeight - (chartHeight / chart.length)) - 40;
+    let height = (chartHeight - (chartHeight / chart.length)) - 25;
 
     return relativeValue * height;
 
