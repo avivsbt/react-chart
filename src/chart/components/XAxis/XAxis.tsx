@@ -1,4 +1,4 @@
-import { Fragment, memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import './XAxis.css';
 import { chart } from '../../data';
 import XAxisBorders from '../XAxisBorders/XAxisBorders';
@@ -25,69 +25,56 @@ const XAxis: React.FC<Props> = ({ chartHeight, chartWidth }) => {
 
   const calcRatioWidth = useCallback((index: number) => (chartWidth / chart.length) * index, [chartHeight]);
 
-  const calcHypotenuse = useCallback((value: number, index: number) => {
+  const calcHypotenuseAndAngle = useCallback((index: number) => {
 
-    // if(index === chart.length - 1) 
+    if (index === chart.length - 1) return [0, 0];
 
-    let opposite = 0;
-
-    if (index === 0) {
-      opposite = 0 - 234.8
-    }
-    if (index === 1) {
-      opposite = 234.8 - 99.79
-    }
-    if (index === 2) {
-      opposite = 99.79 - 176.1
-    }
-    if (index === 3) {
-      opposite = 176.1 - 58.7
-    }
+    /*Hypotenuse*/
+    let opposite = calcRatioHeight(chart[index].value) - calcRatioHeight(chart[index + 1].value);
 
     let chartSpace = (chartWidth / chart.length) * 1;
 
     let oppositeSquared = Math.pow(opposite, 2);
+
     let chartSpaceSquared = Math.pow(chartSpace, 2);
 
     let sumOfSquares = oppositeSquared + chartSpaceSquared;
 
     let hypotenuse = Math.sqrt(sumOfSquares);
 
+    /*Angle*/
     let angleRadians = Math.asin(opposite / hypotenuse);
     let angle = angleRadians * (180 / Math.PI);
-    const arr = [hypotenuse, angle]
-    return arr
+
+    return [hypotenuse, angle]
   }, [chartHeight]);
 
 
   return (
     <>
       <XAxisBorders />
-
       <div className="wrapper-point">
         {chart.map((item, index) => {
-
           return (
-            <Fragment key={item.value}>
+            <div data-value={item.value} key={item.value}>
               <div
-                className="point"
-                data-value={item.value}
-                style={{ bottom: calcRatioHeight(item.value), left: calcRatioWidth(index) - 4 }} />
+                style={{
+                  bottom: calcRatioHeight(item.value),
+                  left: calcRatioWidth(index) - 5
+                }}
+                className="point" />
               <div
                 style={{
                   bottom: calcRatioHeight(item.value),
                   left: calcRatioWidth(index),
-                  width: `${calcHypotenuse(item.value, index)[0]}px`,
-                  transform: `rotate(calc(${calcHypotenuse(item.value, index)[1]} * 1deg))`
+                  width: `${calcHypotenuseAndAngle(index)[0]}px`,
+                  transform: `rotate(calc(${calcHypotenuseAndAngle(index)[1]} * 1deg))`
                 }}
                 className="line-segment" />
-            </Fragment>
-
-
+            </div>
           )
         })}
       </div>
-
     </>
 
   );
