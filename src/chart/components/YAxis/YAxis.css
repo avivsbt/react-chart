@@ -23,4 +23,5 @@
   height: 10px;
   border-radius: 50%;
   background-color: rgb(78, 214, 137);
+  z-index: 1;
 }

@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { Fragment, memo, useCallback, useMemo } from 'react';
 import './XAxis.css';
 import { chart } from '../../data';
 
@@ -24,6 +24,41 @@ const XAxis: React.FC<Props> = ({ chartHeight, chartWidth }) => {
 
   const calcRatioWidth = useCallback((index: number) => (chartWidth / chart.length) * index, [chartHeight]);
 
+  const calcHypotenuse = useCallback((value: number, index: number) => {
+
+    // if(index === chart.length - 1) 
+    
+    let opposite = 0;
+
+    if(index === 0) {
+      opposite = 0 - 234.8
+    }
+    if(index === 1) {
+      opposite =  234.8 - 99.79
+    }
+    if(index === 2) {
+      opposite =   99.79 - 176.1
+    }
+    if(index === 3) {
+      opposite =   176.1 - 58.7
+    }
+    
+    let chartSpace = (chartWidth / chart.length) * 1;
+
+    let oppositeSquared = Math.pow(opposite, 2);
+    let chartSpaceSquared = Math.pow(chartSpace, 2);
+
+    let sumOfSquares = oppositeSquared + chartSpaceSquared;
+
+    let hypotenuse = Math.sqrt(sumOfSquares);
+
+    let angleRadians = Math.asin(opposite / hypotenuse);
+    let angle = angleRadians * (180 / Math.PI);
+    const arr = [hypotenuse, angle]
+    return arr
+  }, [chartHeight]);
+
+
   return (
     <>
       <ul className="wrapper-xaxis">
@@ -36,12 +71,24 @@ const XAxis: React.FC<Props> = ({ chartHeight, chartWidth }) => {
 
       <div className="wrapper-point">
         {chart.map((item, index) => {
+
           return (
-            <div
-              key={item.value}
-              className="point"
-              data-value={item.value}
-              style={{ bottom: calcRatioHeight(item.value), left: calcRatioWidth(index) }} />
+            <Fragment key={item.value}>
+              <div
+                className="point"
+                data-value={item.value}
+                style={{ bottom: calcRatioHeight(item.value), left: calcRatioWidth(index) - 4 }} />
+              <div
+                style={{
+                  bottom: calcRatioHeight(item.value),
+                  left: calcRatioWidth(index),
+                  width: `${calcHypotenuse(item.value, index)[0]}px`,
+                  transform: `rotate(calc(${calcHypotenuse(item.value, index)[1]} * 1deg))`
+                }}
+                className="line-segment" />
+            </Fragment>
+
+
           )
         })}
       </div>
