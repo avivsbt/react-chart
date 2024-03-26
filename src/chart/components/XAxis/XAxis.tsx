@@ -1,6 +1,7 @@
 import { Fragment, memo, useCallback, useMemo } from 'react';
 import './XAxis.css';
 import { chart } from '../../data';
+import XAxisBorders from '../XAxisBorders/XAxisBorders';
 
 type Props = {
   chartHeight: number;
@@ -27,22 +28,22 @@ const XAxis: React.FC<Props> = ({ chartHeight, chartWidth }) => {
   const calcHypotenuse = useCallback((value: number, index: number) => {
 
     // if(index === chart.length - 1) 
-    
+
     let opposite = 0;
 
-    if(index === 0) {
+    if (index === 0) {
       opposite = 0 - 234.8
     }
-    if(index === 1) {
-      opposite =  234.8 - 99.79
+    if (index === 1) {
+      opposite = 234.8 - 99.79
     }
-    if(index === 2) {
-      opposite =   99.79 - 176.1
+    if (index === 2) {
+      opposite = 99.79 - 176.1
     }
-    if(index === 3) {
-      opposite =   176.1 - 58.7
+    if (index === 3) {
+      opposite = 176.1 - 58.7
     }
-    
+
     let chartSpace = (chartWidth / chart.length) * 1;
 
     let oppositeSquared = Math.pow(opposite, 2);
@@ -61,13 +62,7 @@ const XAxis: React.FC<Props> = ({ chartHeight, chartWidth }) => {
 
   return (
     <>
-      <ul className="wrapper-xaxis">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
+      <XAxisBorders />
 
       <div className="wrapper-point">
         {chart.map((item, index) => {

@@ -1,23 +1,4 @@
-.wrapper-xaxis {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  position: absolute;
-}
 
-.wrapper-xaxis li {
-  list-style: none;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  border-bottom: 1px solid rgba(204, 204, 204, 0.329);
-  margin-bottom: 10px;
-}
 
 .wrapper-point {
   position: relative;
