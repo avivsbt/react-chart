@@ -1,4 +1,10 @@
 export interface IChart {
+  date: string;
   value: number;
-  dimension: string;
+  volume: number;
+}
+
+export interface IChartData {
+  data: IChart[];
+  symbol: string;
 }
