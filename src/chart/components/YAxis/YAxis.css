@@ -17,12 +17,3 @@
   justify-content: flex-end;
   margin-bottom: -10px;
 }
-
-.point {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: rgb(78, 214, 137);
-  z-index: 1;
-}
