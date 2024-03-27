@@ -3,6 +3,7 @@ import './XAxis.css';
 import { chart } from '../../data';
 import XAxisBorders from '../XAxisBorders/XAxisBorders';
 import { useDimensionsElement } from '../../hooks/useDimensionsElement';
+import XAxisItem from '../XAxisItem/XAxisItem';
 
 const XAxis: React.FC = () => {
 
@@ -11,7 +12,7 @@ const XAxis: React.FC = () => {
   const max = useMemo(() => Math.max(...chart.data.map((item) => item.value)), []);
   const min = useMemo(() => Math.min(...chart.data.map((item) => item.value)), []);
 
-  const calcRatioHeight = useCallback((value: number) => {
+  const YRatioValue = useCallback((value: number) => {
 
     const relativeValue = (value - min) / (max - min);
 
@@ -19,14 +20,14 @@ const XAxis: React.FC = () => {
 
   }, [height]);
 
-  const calcRatioWidth = useCallback((index: number) => (width / chart.data.length) * index, [width]);
+  const XRatioValue = useCallback((index: number) => (width / chart.data.length) * index, [width]);
 
-  const calcHypotenuseAndAngle = useCallback((index: number) => {
+  const hypotenuseAndAngle = useCallback((index: number) => {
 
     if (index === chart.data.length - 1) return [0, 0];
 
-    /*Hypotenuse*/
-    let opposite = calcRatioHeight(chart.data[index].value) - calcRatioHeight(chart.data[index + 1].value);
+    /*Hypotenuse calculation*/
+    let opposite = YRatioValue(chart.data[index].value) - YRatioValue(chart.data[index + 1].value);
 
     let chartSpace = (width / chart.data.length) * 1;
 
@@ -38,7 +39,7 @@ const XAxis: React.FC = () => {
 
     let hypotenuse = Math.sqrt(sumOfSquares);
 
-    /*Angle*/
+    /*Angle calculation*/
     let angleRadians = Math.asin(opposite / hypotenuse);
     let angle = angleRadians * (180 / Math.PI);
 
@@ -49,33 +50,16 @@ const XAxis: React.FC = () => {
     <>
       <XAxisBorders />
       <div ref={ref} className="wrapper-point">
-        {chart.data.map((item, index) => {
-          return (
-            <div data-value={item.value} key={index}>
-              <div
-                style={{
-                  bottom: calcRatioHeight(item.value) - 4,
-                  left: calcRatioWidth(index) - 4.5
-                }}
-                className="point" >
-                <span className="tooltip">
-                  <div className='price'>{item.value}</div>
-                </span>
-              </div>
-              <div
-                style={{
-                  bottom: calcRatioHeight(item.value),
-                  left: calcRatioWidth(index),
-                  width: `${calcHypotenuseAndAngle(index)[0]}px`,
-                  transform: `rotate(calc(${calcHypotenuseAndAngle(index)[1]} * 1deg))`
-                }}
-                className="line-segment" />
-            </div>
-          )
-        })}
+        {chart.data.map((item, index) =>
+          <XAxisItem
+            x={XRatioValue(index)}
+            y={YRatioValue(item.value)}
+            hypotenuseAndAngle={hypotenuseAndAngle(index)}
+            price={item.value}
+            key={index} />
+        )}
       </div>
     </>
-
   );
 };
 
