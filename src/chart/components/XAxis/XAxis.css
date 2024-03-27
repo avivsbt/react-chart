@@ -21,7 +21,7 @@
 }
 
 .point:hover {
-  background-color: rgb(78, 214, 137);
+  background-color: #4ed689;
   transition: 0.5s;
 }
 
