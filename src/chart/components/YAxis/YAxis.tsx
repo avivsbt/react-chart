@@ -3,19 +3,20 @@ import './YAxis.css';
 import { chart } from '../../data';
 
 const YAxis: React.FC = () => {
-  const max = useMemo(() => Math.max(...chart.data.map((item) => item.value)), []);
+
+  const max = useMemo(() => (Math.max(...chart.data.map((item) => item.value)) / 5) * 4, []);
   const min = useMemo(() => Math.min(...chart.data.map((item) => item.value)), []);
-  const middle = useMemo(() => Math.floor((max + min) / 2), [max, min]);
-  const middleMin = useMemo(() => Math.floor((middle + min) / 2), [middle, min]);
-  const middleMax = useMemo(() => Math.floor((middle + max) / 2), [middle, max]);
+  const middle = useMemo(() => (max + min) / 2, [max, min]);
+  const middleMin = useMemo(() => (middle + min) / 2, [middle, min]);
+  const middleMax = useMemo(() => (middle + max) / 2, [middle, max]);
 
   return (
     <ul className="wrapper-yaxis">
-      <li>{max}</li>
-      <li>{middleMax}</li>
-      <li>{middle}</li>
-      <li>{middleMin}</li>
-      <li>{min}</li>
+      <li>{max.toFixed(2)}</li>
+      <li>{middleMax.toFixed(2)}</li>
+      <li>{middle.toFixed(2)}</li>
+      <li>{middleMin.toFixed(2)}</li>
+      <li>{min.toFixed(2)}</li>
     </ul>
   );
 };
