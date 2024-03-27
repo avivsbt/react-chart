@@ -1,0 +1,20 @@
+.line-segment {
+    background-color: #897d7da5;
+    height: 3px;
+    position: absolute;
+    transform-origin: left bottom;
+}
+
+.point {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #897d7d;
+    z-index: 1;
+}
+
+.point:hover {
+    background-color: #4ed689;
+    transition: 0.5s;
+}
