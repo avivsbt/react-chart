@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import './XAxis.css';
 import { chart } from '../../data';
 import XAxisBorders from '../XAxisBorders/XAxisBorders';
