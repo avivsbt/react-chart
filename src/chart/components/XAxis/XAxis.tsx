@@ -70,11 +70,13 @@ const XAxis: React.FC = () => {
             <div data-value={item.value} key={item.value}>
               <div
                 style={{
-                  bottom: calcRatioHeight(item.value) - 2,
-                  left: calcRatioWidth(index) - 5
+                  bottom: calcRatioHeight(item.value) -3,
+                  left: calcRatioWidth(index) - 3.2
                 }}
                 className="point" >
-                <span className="tooltip">{item.value}</span>
+                <span className="tooltip">
+                  <div className='price'>{item.value}</div>
+                </span>
               </div>
               <div
                 style={{
