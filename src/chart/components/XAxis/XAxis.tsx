@@ -1,38 +1,49 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import './XAxis.css';
 import { chart } from '../../data';
 import XAxisBorders from '../XAxisBorders/XAxisBorders';
 
-type Props = {
-  chartHeight: number;
-  chartWidth: number;
-}
+const XAxis: React.FC = () => {
 
-const XAxis: React.FC<Props> = ({ chartHeight, chartWidth }) => {
+  const chartRef = useRef<HTMLDivElement>(null);
+  const [chartWidth, setChartWidth] = useState(0);
+  const [chartHeight, setChartHeight] = useState(0);
 
-  const max = useMemo(() => Math.max(...chart.map((item) => item.value)), []);
-  const min = useMemo(() => Math.min(...chart.map((item) => item.value)), []);
+  useEffect(() => {
+    const updateSize = () => {
+      if (chartRef.current) {
+        setChartWidth(chartRef.current.clientWidth);
+        setChartHeight(chartRef.current.clientHeight);
+      }
+    };
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
+  const max = useMemo(() => Math.max(...chart.data.map((item) => item.value)), []);
+  const min = useMemo(() => Math.min(...chart.data.map((item) => item.value)), []);
 
   const calcRatioHeight = useCallback((value: number) => {
 
     const relativeValue = (value - min) / (max - min);
 
-    let height = (chartHeight - (chartHeight / chart.length)) - 25;
+    let height = (chartHeight - (chartHeight / chart.data.length)) - 50;
 
     return relativeValue * height;
 
   }, [chartHeight]);
 
-  const calcRatioWidth = useCallback((index: number) => (chartWidth / chart.length) * index, [chartHeight]);
+  const calcRatioWidth = useCallback((index: number) => (chartWidth / chart.data.length) * index, [chartWidth]);
 
   const calcHypotenuseAndAngle = useCallback((index: number) => {
 
-    if (index === chart.length - 1) return [0, 0];
+    if (index === chart.data.length - 1) return [0, 0];
 
     /*Hypotenuse*/
-    let opposite = calcRatioHeight(chart[index].value) - calcRatioHeight(chart[index + 1].value);
+    let opposite = calcRatioHeight(chart.data[index].value) - calcRatioHeight(chart.data[index + 1].value);
 
-    let chartSpace = (chartWidth / chart.length) * 1;
+    let chartSpace = (chartWidth / chart.data.length) * 1;
 
     let oppositeSquared = Math.pow(opposite, 2);
 
@@ -47,22 +58,24 @@ const XAxis: React.FC<Props> = ({ chartHeight, chartWidth }) => {
     let angle = angleRadians * (180 / Math.PI);
 
     return [hypotenuse, angle]
-  }, [chartHeight]);
+  }, [chartWidth]);
 
 
   return (
     <>
       <XAxisBorders />
-      <div className="wrapper-point">
-        {chart.map((item, index) => {
+      <div ref={chartRef} className="wrapper-point">
+        {chart.data.map((item, index) => {
           return (
             <div data-value={item.value} key={item.value}>
               <div
                 style={{
-                  bottom: calcRatioHeight(item.value),
+                  bottom: calcRatioHeight(item.value) - 2,
                   left: calcRatioWidth(index) - 5
                 }}
-                className="point" />
+                className="point" >
+                <span className="tooltip">{item.value}</span>
+              </div>
               <div
                 style={{
                   bottom: calcRatioHeight(item.value),
