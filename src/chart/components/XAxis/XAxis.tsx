@@ -2,24 +2,11 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import './XAxis.css';
 import { chart } from '../../data';
 import XAxisBorders from '../XAxisBorders/XAxisBorders';
+import { useDimensionsElement } from '../../hooks/useDimensionsElement';
 
 const XAxis: React.FC = () => {
 
-  const chartRef = useRef<HTMLDivElement>(null);
-  const [chartWidth, setChartWidth] = useState(0);
-  const [chartHeight, setChartHeight] = useState(0);
-
-  useEffect(() => {
-    const updateSize = () => {
-      if (chartRef.current) {
-        setChartWidth(chartRef.current.clientWidth);
-        setChartHeight(chartRef.current.clientHeight);
-      }
-    };
-    updateSize();
-    window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
+  const { ref, width, height } = useDimensionsElement();
 
   const max = useMemo(() => Math.max(...chart.data.map((item) => item.value)), []);
   const min = useMemo(() => Math.min(...chart.data.map((item) => item.value)), []);
@@ -28,13 +15,11 @@ const XAxis: React.FC = () => {
 
     const relativeValue = (value - min) / (max - min);
 
-    let height = chartHeight - (chartHeight / 5);
-
     return relativeValue * height;
 
-  }, [chartHeight]);
+  }, [height]);
 
-  const calcRatioWidth = useCallback((index: number) => (chartWidth / chart.data.length) * index, [chartWidth]);
+  const calcRatioWidth = useCallback((index: number) => (width / chart.data.length) * index, [width]);
 
   const calcHypotenuseAndAngle = useCallback((index: number) => {
 
@@ -43,7 +28,7 @@ const XAxis: React.FC = () => {
     /*Hypotenuse*/
     let opposite = calcRatioHeight(chart.data[index].value) - calcRatioHeight(chart.data[index + 1].value);
 
-    let chartSpace = (chartWidth / chart.data.length) * 1;
+    let chartSpace = (width / chart.data.length) * 1;
 
     let oppositeSquared = Math.pow(opposite, 2);
 
@@ -58,20 +43,19 @@ const XAxis: React.FC = () => {
     let angle = angleRadians * (180 / Math.PI);
 
     return [hypotenuse, angle]
-  }, [chartWidth]);
-
+  }, [width]);
 
   return (
     <>
       <XAxisBorders />
-      <div ref={chartRef} className="wrapper-point">
+      <div ref={ref} className="wrapper-point">
         {chart.data.map((item, index) => {
           return (
-            <div data-value={item.value} key={item.value}>
+            <div data-value={item.value} key={index}>
               <div
                 style={{
-                  bottom: calcRatioHeight(item.value) -3,
-                  left: calcRatioWidth(index) - 3.2
+                  bottom: calcRatioHeight(item.value) - 4,
+                  left: calcRatioWidth(index) - 4.5
                 }}
                 className="point" >
                 <span className="tooltip">
