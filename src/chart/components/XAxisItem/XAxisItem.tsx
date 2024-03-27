@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import './XAxisItem.css';
 import Tooltip from '../Tooltip/Tooltip';
 
@@ -10,11 +10,16 @@ type Props = {
 };
 
 const XAxisItem: React.FC<Props> = ({ x, y, hypotenuseAndAngle, price }) => {
+    const [isShown, setIsShown] = useState(false);
+
     return (
         <div data-value={price}>
-
-            <div className="point" style={{ bottom: y - 4, left: x - 4 }}>
-                <Tooltip price={price} />
+            <Tooltip shown={isShown} x={x} y={y} price={price} />
+            <div
+                onMouseEnter={() => setIsShown(true)}
+                onMouseLeave={() => setIsShown(false)}
+                className="point"
+                style={{ bottom: y - 2.5, left: x - 2.5 }}>
             </div>
 
             <div className="line-segment"
