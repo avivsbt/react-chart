@@ -34,6 +34,7 @@ To build the project for production, use the following command:
 
 ```bash
 npm run build
+```
 
 
 ### Learning Source and Credits
