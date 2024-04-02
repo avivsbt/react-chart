@@ -1,30 +1,36 @@
-# React + TypeScript + Vite
+## Project Title
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Description
 
-Currently, two official plugins are available:
+This project focuses on building a module that enables automatic display of graphs through a random object. The module is based on calculating the proportions of elements relative to random data in a non-traditional manner, utilizing div elements instead of SVG and canvas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Installation and Local Development
 
-## Expanding the ESLint configuration
+To get started with this project, follow these steps:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Clone the repository:
 
-- Configure the top-level `parserOptions` property like this:
+    ```bash
+    git clone <repository-url>
+    ```
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+2. Install dependencies:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+    ```bash
+    npm install
+    ```
+
+3. Run the project locally:
+
+    ```bash
+    npm run dev
+    ```
+
+   This command will start the development server, and you can access the project at `http://localhost:XXXX` in your web browser.
+
+### Building for Production
+
+To build the project for production, use the following command:
+
+```bash
+npm run build
