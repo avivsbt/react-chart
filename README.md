@@ -11,7 +11,7 @@ To get started with this project, follow these steps:
 1. Clone the repository:
 
     ```bash
-    git clone <https://github.com/avivsbt/react-chart.git>
+    git clone https://github.com/avivsbt/react-chart.git
     ```
 
 2. Install dependencies:
