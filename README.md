@@ -1,4 +1,4 @@
-## Project Title
+## React Chart
 
 ### Description
 
