@@ -6,6 +6,12 @@ This project focuses on building a module that enables automatic display of grap
 
 ---
 
+### Application Structure
+
+![](public/chart.drawio.png)
+
+---
+
 ### Installation and Local Development
 
 To get started with this project, follow these steps:
