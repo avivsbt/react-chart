@@ -4,6 +4,8 @@
 
 This project focuses on building a module that enables automatic display of graphs through a random object. The module is based on calculating the proportions of elements relative to random data in a non-traditional manner, utilizing div elements instead of SVG and canvas.
 
+---
+
 ### Installation and Local Development
 
 To get started with this project, follow these steps:
@@ -28,6 +30,8 @@ To get started with this project, follow these steps:
 
    This command will start the development server, and you can access the project at `http://localhost:XXXX` in your web browser.
 
+---
+
 ### Building for Production
 
 To build the project for production, use the following command:
@@ -35,8 +39,13 @@ To build the project for production, use the following command:
 ```bash
 npm run build
 ```
+
+---
+
 ### Edit Online:
 [stackblitz](https://stackblitz.com/~/github.com/avivsbt/react-chart)
+
+---
 
 ### Learning Source and Credits
 This project was inspired by the tutorial on CSS-Tricks on how to make a line chart with CSS. You can find the tutorial [here](https://css-tricks.com/how-to-make-a-line-chart-with-css/)
