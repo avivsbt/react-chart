@@ -48,10 +48,5 @@ npm run build
 
 ---
 
-### Edit Online:
-[stackblitz](https://stackblitz.com/~/github.com/avivsbt/react-chart)
-
----
-
 ### Learning Source and Credits
 This project was inspired by the tutorial on CSS-Tricks on how to make a line chart with CSS. You can find the tutorial [here](https://css-tricks.com/how-to-make-a-line-chart-with-css/)
